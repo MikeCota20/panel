@@ -1,0 +1,59 @@
+.navbar-global{
+    background-color: aqua;
+    padding: 2dvh;
+}
+
+.navbar{
+    text-align: center;
+    display: flex;
+    justify-content: space-between;
+}
+
+.navbar-options {
+    display: flex;
+    gap: 3dvh;
+}
+
+.dropdown {
+    position: relative; /* Referencia para el dropdown-content */
+}
+
+.dropdown button {
+    background-color: transparent;
+    color: black;
+    padding: 10px 15px;
+    border: none;
+    cursor: pointer;
+}
+
+
+.dropdown a {
+    display: block;
+    color: rgb(139, 0, 0);
+    text-decoration: none;
+    padding: 10px 15px;
+}
+
+.dropdown .dropdown-content {
+    display: none;
+    position: absolute;
+    top: 100%; /* Aparece justo debajo del botón */
+    left: 0;
+    background-color: hsl(0, 0%, 84%);
+    min-width: 100%;
+    box-shadow: 2px 2px 5px black;
+    z-index: 1; /* Asegúrate de que aparezca sobre otros elementos */
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+.dropdown:hover {
+    background-color: aliceblue;
+} 
+
+.dropdown a:hover{
+    background-color: beige;
+}
+

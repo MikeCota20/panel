@@ -1,0 +1,7 @@
+.categories-global{
+    display: flex;
+    flex-direction: row;
+    gap: 1dvh;
+    text-align: center;
+    justify-content: center;
+}

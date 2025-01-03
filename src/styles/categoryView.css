@@ -1,0 +1,22 @@
+.manga-global{
+    display: grid;
+    grid-template-columns: 1fr 4fr;
+}
+
+.manga-filters{
+    display: flex;
+    flex-direction: row;
+}
+
+.manga-section{
+    text-align: center;
+    position: sticky;
+}
+
+.manga-list{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* Dos columnas */
+    gap: 10px; /* Espaciado entre los elementos */
+    padding: 20px;
+}
+
