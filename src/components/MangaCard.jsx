@@ -1,5 +1,6 @@
 import React from "react";
 import placeholder from "../assets/imgs/istockphoto-1147544807-612x612.jpg";
+import "../styles/mangaCard.css";
 
 function MangaCard({ index }) {
   return (

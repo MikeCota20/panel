@@ -1,0 +1,103 @@
+.profile-global{
+    display: flex;
+    flex-direction: column;
+    gap: 5dvh;
+    margin-left: 5dvh;
+    margin-top: 5dvh;
+    margin-right: 5dvh;
+}
+
+.profile-global label{
+    font-size: 2.5dvh;
+}
+
+.profile-picture img{
+    height: 20dvh;
+    width: 20dvh;
+}
+
+.pn-show{
+    display: flex;
+    flex-direction: row;
+    gap: 3dvh;
+    text-align: center;
+}
+
+.pn-show p{
+    font-size: 2.5dvh;
+    margin-top: 3.5dvh;
+}
+
+.pn-show h3{
+    font-size: 3dvh;
+}
+
+.pn-change{
+    display: flex;
+    flex-direction: row;
+    gap: 3dvh;
+}
+
+.pn-changeSubmit{
+    display: flex;
+    flex-direction: column;
+}
+
+.pn-changeSubmit input{
+    background-color: transparent;
+    color: white;
+    border: none;
+    border-bottom: 1px solid transparent;
+    height: 3dvh;
+    font-size: 2.5dvh;
+    margin-top: .1dvh;
+} 
+
+.pn-changeSubmit input:hover{
+    border-bottom: 1px red solid;    
+}
+
+.pn-changeSubmit input:focus{
+    outline: none;
+}
+
+.pn-changeSubmit2 button{
+    float: right;
+    height: 3dvh;
+
+}
+
+.profile-name{
+    border-bottom: 1px gray solid;
+    padding-bottom: 5dvh;
+}
+
+.pp-change{
+    display: flex;
+    flex-direction: row;
+    gap: 3dvh;
+    margin-top: 2dvh;
+}
+
+.pp-change input{
+    background-color: transparent;
+    color: white;
+    border: none;
+    border-bottom: 1px solid transparent;
+    height: 3dvh;
+    font-size: 2.5dvh;
+    margin-top: .1dvh;
+}
+
+.pp-change input:hover{
+    border-bottom: 1px red solid;    
+}
+
+.pp-change input:focus{
+    outline: none;
+}
+
+.profile-password{
+    border-bottom: 1px gray solid;
+    padding-bottom: 10dvh;
+}

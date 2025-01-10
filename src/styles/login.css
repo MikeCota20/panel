@@ -1,0 +1,19 @@
+.login-global{
+    display: flex;
+    justify-content: center;
+    
+}
+
+.login-container{
+    background-color: aliceblue;
+    margin-top: 15dvh;
+    padding: 15dvh;
+    display: flex;
+    flex-direction: column;
+    gap: 2dvh;
+}
+
+.login-content{
+    display: flex;
+    flex-direction: column;
+}

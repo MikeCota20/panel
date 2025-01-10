@@ -1,6 +1,8 @@
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "../styles/navbar.css"
+import logo from "../assets/imgs/f05ef210-a395-401e-967e-c35ad3052220.webp";
+import default_pfp from "../assets/pfps/default-pfp-v0-1to4yvt3i88c1.webp"
 
 function Navbar() {
   
@@ -14,11 +16,14 @@ function Navbar() {
     <div className="navbar-global">
       <div className="navbar">
         <div className="navbar-icon">
-          Icon
+          <Link to="/">
+            <img src={logo}alt="logo"></img>
+          </Link>
         </div>
         <div className="navbar-options">
-          <Link to="/">Home</Link>
-          <Link to="/catalogue">Catalogue</Link>
+          <button className="navbar-button" onClick={() => handleRedirect("/")}>
+            Home
+          </button>
           <div className="dropdown">
             <button onClick={() => handleRedirect("/catalogue")}>
               Catalogue
@@ -29,8 +34,14 @@ function Navbar() {
               <Link to="/webtoons">Webtoons</Link>
             </div>
           </div>
-          <a href="#">Search</a>
-          <a href="#">Pfp</a>
+          <input type="text" placeholder="Search..."  className="navbar-search"/>
+          <div className="navbar-user">
+              <img src={default_pfp} alt="Profile Picture" />
+              <div className="dropdown-content">
+                  <Link to="/Login">Log in</Link>
+                  <Link to="/Register">Register</Link>
+              </div>
+          </div>
         </div>
       </div>
     </div>
