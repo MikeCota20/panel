@@ -57,5 +57,50 @@ app.post("/api/login", (req, res) => {
     });
 });
 
+app.get('/api/titles', (req, res) => {
+    const { id } = req.query; // Obtén el ID desde los parámetros de la solicitud
+
+    // Si hay un ID, devuelve un solo cómic
+    if (id) {
+        const query = 'SELECT * FROM mangas WHERE id = ?';
+        db.query(query, [id], (err, results) => {
+            if (err) {
+                res.status(500).send(err);
+            } else if (results.length === 0) {
+                res.status(404).send({ message: 'Title not found' });
+            } else {
+                res.json(results[0]); // Devuelve el cómic encontrado
+            }
+        });
+    } else {
+        // Si no hay ID, devuelve todos los cómics
+        const query = 'SELECT * FROM mangas';
+        db.query(query, (err, results) => {
+            if (err) {
+                res.status(500).send(err);
+            } else {
+                res.json(results);
+            }
+        });
+    }
+});
+
+app.get('/api/mangas', async (req, res) => {
+    try {
+        const query = "SELECT * FROM mangas WHERE kind = 'manga'"; // Asegúrate que el valor 'manga' sea correcto
+        db.query(query, (err, results) => {
+            if (err) {
+                res.status(500).json({ message: 'Error when obtaining mangas...' });
+            } else {
+                res.json(results); // Devuelve todos los registros
+            }
+        });
+    } catch (error) {
+        res.status(500).json({ message: 'Error when obtaining mangas...' });
+    }
+});
+
+
+
 // Iniciar el servidor
 app.listen(PORT, () => console.log(`Servidor corriendo en el puerto ${PORT}`));

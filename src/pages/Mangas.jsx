@@ -6,7 +6,7 @@ import MangaCard from "../components/MangaCard";
 
 function Mangas() {
 
-    const repeatCount = 20;
+    const repeatCount = 1;
 
     return (
       <div className="manga-global">
@@ -26,9 +26,10 @@ function Mangas() {
             </div>
         </div>
         <div className="manga-list">
-            {Array.from({ length: repeatCount }).map((_, index) => (
+            {/* {Array.from({ length: repeatCount }).map((_, index) => (
                 <MangaCard key={index} index={index + 1} />
-            ))}
+            ))} */}
+            <MangaCard/>
         </div>
         
       </div>

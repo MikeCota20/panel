@@ -28,7 +28,7 @@ function Login() {
 
     return (
       <div className="login-global">
-        <form>
+        <form onSubmit={handleSubmit}>
           <div className="login-container">
             <h1>Log In</h1>
               <div className="login-content">
@@ -49,7 +49,7 @@ function Login() {
                     onChange={(e) => setPassword(e.target.value)}
                   />
               </div>
-              <button>Log In</button> 
+              <button type="submit">Log In</button> 
               <p>Don't have an user?</p>
               <Link to="/register">Register now!</Link>
           </div>

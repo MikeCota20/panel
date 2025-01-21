@@ -10,6 +10,7 @@ import Comics from "./pages/Comics";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Profile from "./pages/Profile";
+import Title from "./pages/Title";
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/profile" element={<Profile />} />
+          <Route path="/title" element={<Title/>} />
         </Routes>
 
       </div>
