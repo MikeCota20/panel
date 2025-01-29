@@ -1,0 +1,17 @@
+.mediaViewerContainer{
+    height: 70dvh;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 5dvh;
+    margin-top: 1dvh;
+    border: 1px solid white;
+    padding: 5dvh;
+    margin-left: 40dvh;
+    margin-right: 40dvh;
+}
+
+.mediaViewerContainer img{
+    height: 100%;
+    width: 100%;
+    object-fit: contain;
+}

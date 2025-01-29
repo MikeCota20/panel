@@ -11,19 +11,20 @@ function Login() {
     const [password, setPassword] = useState("");
 
     const handleSubmit = async (e) => {
-        e.preventDefault();
-        try {
-            const response = await axios.post("http://localhost:5000/api/login", {
-                email,
-                password
-            });
-            const { token } = response.data;
-            localStorage.setItem("token", token);
-            alert("Sucessfully Logged in.");
-        } catch (error) {
-            alert("Error at logging in.");
-        }
-    };
+      e.preventDefault();
+      try {
+          const response = await axios.post("http://localhost:5000/api/login", {
+              email,
+              password
+          });
+          const { token } = response.data;
+          localStorage.setItem("token", token);
+          alert("Successfully Logged in.");
+          window.location.href = "/"; // Redirigir al home después del login
+      } catch (error) {
+          alert("Error at logging in.");
+      }
+  };
 
 
     return (

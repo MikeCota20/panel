@@ -1,0 +1,51 @@
+.title-banner{
+    display: flex;
+    flex-direction: row;
+    margin-left: 10dvh;
+    margin-right: 5dvh;
+    gap: 5dvh;
+    margin-top: 1dvh;
+    border-bottom: 1px solid white;
+    padding-bottom: 5dvh;
+}
+
+.title-img img{
+    height: 40dvh;
+}
+
+.title-text{
+    padding: 0;
+    margin-top: 0;
+}
+
+.title-text h1{
+    font-size: 7dvh;
+    margin-top: 0;
+}
+
+.title-text p{
+    font-size: 2dvh;
+}
+
+.title-chapters{
+    margin-left: 10dvh;
+}
+
+.title-chapters h2{
+    font-size: 3dvh;
+}
+
+.title-chapters a{
+    text-decoration: none;
+    color: white;
+    font-size: 2.5dvh;
+}
+
+.title-chapters li{
+    list-style: none;
+    margin-bottom: 2dvh;
+}
+
+.title-chapters a:hover{
+    color: aqua;
+}

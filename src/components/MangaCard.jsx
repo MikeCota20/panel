@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from "react";
+import { useSearchParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 import axios from "axios";
 import placeholder from "../assets/imgs/istockphoto-1147544807-612x612.jpg";
 import "../styles/mangaCard.css";
@@ -32,9 +34,11 @@ function MangaCard() {
       {mangas.length > 0 ? (
         mangas.map((manga, index) => (  // Cambié 'mangas' a 'manga'
           <div className="template" key={manga.id}>  {/* Cambié 'mangas.id' a 'manga.id' */}
-            <div className="template-img">
-              <img src={manga.cover || placeholder} alt={manga.title} /> {/* Usé 'manga.cover' para la imagen */}
-            </div>
+            <Link to={`/title?id=${manga.id}`}>
+              <div className="template-img">
+                <img src={manga.cover || placeholder} alt={manga.title} /> {/* Usé 'manga.cover' para la imagen */}
+              </div>
+            </Link>
             <h2>{manga.title}</h2>
             <p>{manga.synopsis}</p> {/* O cualquier otro campo de tu base de datos */}
           </div>
