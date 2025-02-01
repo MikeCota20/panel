@@ -12,6 +12,8 @@ const PORT = 5000;
 app.use(bodyParser.json());
 app.use(cors());
 app.use("/api", protectedRoutes);
+app.use("/pfps", express.static("../public/pfps/"));
+
 
 const db = mysql.createConnection({
     host: "localhost",
@@ -148,25 +150,29 @@ app.get('/api/chapters/:id/pages', (req, res) => {
     });
 });
 
-app.get('/api/chapters/:id/comments', (req, res) => {
-    const { id } = req.params;
-    const query = `SELECT c.content, c.date, u.username 
-                   FROM comments c 
-                   INNER JOIN users u ON c.user_id = u.id 
-                   WHERE c.chapter_id = ?`;
+app.get('/api/chapters/:id/comments', (request, response) => {
+    const { id } = request.params;
+    const sqlQuery = `
+        SELECT comments.content, comments.date, users.username, users.pfp 
+        FROM comments 
+        INNER JOIN users ON comments.user_id = users.id 
+        WHERE comments.chapter_id = ?
+        ORDER BY comments.date DESC`;
 
-    db.query(query, [id], (err, results) => {
-        if (err) return res.status(500).json({ message: "Error retrieving comments." });
+    db.query(sqlQuery, [id], (error, results) => {
+        if (error) return response.status(500).json({ message: "Error retrieving comments." });
 
-        // Formatear fechas antes de enviar al frontend
+        console.log(results); // Verifica si pfp contiene valores correctos en la respuesta
+
         const formattedResults = results.map(comment => ({
             ...comment,
-            created_at: new Date(comment.date).toISOString()
+            date: new Date(comment.date).toISOString()
         }));
 
-        res.json(formattedResults);
+        response.json(formattedResults);
     });
 });
+
 
 app.post('/api/chapters/:id/comments', verifyToken, (req, res) => {
     const { id } = req.params;
@@ -200,6 +206,126 @@ app.get('/api/chapters/:id', (request, response) => {
     });
 });
 
+app.get('/api/comics', async (req, res) => {
+    try {
+        const query = "SELECT * FROM mangas WHERE kind = 'comic'"; // Asegúrate que el valor 'manga' sea correcto
+        db.query(query, (err, results) => {
+            if (err) {
+                res.status(500).json({ message: 'Error when obtaining comics...' });
+            } else {
+                res.json(results); // Devuelve todos los registros
+            }
+        });
+    } catch (error) {
+        res.status(500).json({ message: 'Error when obtaining comics...' });
+    }
+});
+
+app.get('/api/webtoons', async (req, res) => {
+    try {
+        const query = "SELECT * FROM mangas WHERE kind = 'webtoon'"; // Asegúrate que el valor 'manga' sea correcto
+        db.query(query, (err, results) => {
+            if (err) {
+                res.status(500).json({ message: 'Error when obtaining webtoons...' });
+            } else {
+                res.json(results); // Devuelve todos los registros
+            }
+        });
+    } catch (error) {
+        res.status(500).json({ message: 'Error when obtaining webtoons...' });
+    }
+});
+
+
+app.get("/api/users", verifyToken, (req, res) => {
+    const userId = req.user.id;
+    const query = "SELECT username, email, pfp FROM users WHERE id = ?";
+  
+    db.query(query, [userId], (err, results) => {
+      if (err) return res.status(500).send("Error retrieving user profile.");
+      if (results.length === 0) return res.status(404).send("User not found.");
+      
+      res.json(results[0]); // Devuelve la información del usuario
+    });
+  });
+  
+// Ruta para actualizar el nombre de usuario
+app.put('/api/users/update-username', verifyToken, (req, res) => {
+    const { username } = req.body; // Obtenemos el nuevo nombre de usuario
+    const userId = req.user.id;
+
+    if (!username) {
+        return res.status(400).json({ message: 'Username is required' });
+    }
+
+    const query = "UPDATE users SET username = ? WHERE id = ?";
+    db.query(query, [username, userId], (err, result) => {
+        if (err) return res.status(500).json({ message: 'Error updating username. Name could be already be in use.' });
+        if (result.affectedRows === 0) return res.status(404).json({ message: 'User not found.' });
+        res.status(200).json({ message: 'Username updated successfully' });
+    });
+});
+
+
+// Ruta para actualizar la contraseña
+app.put('/api/users/update-password', verifyToken, async (req, res) => {
+    console.log("Received body:", req.body); // <-- Agregado para depuración
+
+    const { password, confirmPassword } = req.body;
+    const userId = req.user.id;
+
+    if (!password || !confirmPassword) {
+        return res.status(400).json({ message: 'Password and confirmation are required' });
+    }
+
+    if (password !== confirmPassword) {
+        return res.status(400).json({ message: 'Passwords do not match' });
+    }
+
+    const salt = await bcrypt.genSalt(10);
+    const passwordHash = await bcrypt.hash(password, salt);
+
+    const query = "UPDATE users SET password = ? WHERE id = ?";
+    db.query(query, [passwordHash, userId], (err, result) => {
+        if (err) return res.status(500).json({ message: 'Error updating password.' });
+        if (result.affectedRows === 0) return res.status(404).json({ message: 'User not found.' });
+        res.status(200).json({ message: 'Password updated successfully' });
+    });
+});
+
+
+import multer from 'multer';
+import path from 'path';
+
+// Configuración de multer para la carga de imágenes
+const storage = multer.diskStorage({
+    destination: (req, file, cb) => {
+        cb(null, '../public/pfps/'); // Carpeta donde se guardarán las imágenes
+    },
+    filename: (req, file, cb) => {
+        cb(null, Date.now() + path.extname(file.originalname)); // Guardar con un nombre único
+    },
+});
+
+const upload = multer({ storage });
+
+// Ruta para actualizar la imagen de perfil
+app.post('/api/users/update-profile-picture', verifyToken, upload.single('pfp'), (req, res) => {
+    if (!req.file) {
+        return res.status(400).json({ message: 'No file uploaded' });
+    }
+
+    const userId = req.user.id;
+    const pfpPath = req.file.filename; // Guardamos solo el nombre del archivo
+
+    const query = "UPDATE users SET pfp = ? WHERE id = ?";
+    db.query(query, [pfpPath, userId], (err, result) => {
+        if (err) return res.status(500).json({ message: 'Error updating profile picture.' });
+        if (result.affectedRows === 0) return res.status(404).json({ message: 'User not found.' });
+
+        res.status(200).json({ message: 'Profile picture updated successfully', pfp: pfpPath });
+    });
+});
 
 
 

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
+import "../styles/comments.css"
 
 function Comments() {
   const { id } = useParams();
@@ -69,14 +70,34 @@ function Comments() {
         {comments.length > 0 ? (
           comments.map((comment, index) => (
             <div key={index} className="comment">
-              <p>{comment.content}</p>
-              <small>{new Date(comment.date).toLocaleString()}</small>
+              <div className="comment-header">
+                <div className='comments-avatar'>
+                  <img
+                    src={`/pfps/${comment.pfp}`} // Usa una imagen por defecto si no tiene foto
+                    alt={`${comment.username}'s profile`}
+                    className="comment-avatar"
+                  />
+                </div>
+                <div className='comment-flex'>
+                  <div className='comments-meta'>
+                    <strong>{comment.username}</strong>
+                    <small>{new Date(comment.date).toLocaleString()}</small>
+                  </div>
+                  <div className='comment-content'>
+                    <p>{comment.content}</p>
+                  </div>
+                </div>
+
+
+              </div>
+              
             </div>
           ))
         ) : (
           <p>No comments yet. Be the first!</p>
         )}
       </div>
+
     </div>
   );
 }

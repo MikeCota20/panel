@@ -5,9 +5,8 @@
 }
 
 .login-container{
-    background-color: aliceblue;
+    background-color: transparent;
     margin-top: 15dvh;
-    padding: 15dvh;
     display: flex;
     flex-direction: column;
     gap: 2dvh;

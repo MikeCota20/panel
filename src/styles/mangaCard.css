@@ -1,8 +1,38 @@
+.template-img{
+    display: flex;
+    justify-content: center;
+}
+
 .template-img img{
     height: 25dvh;
     width: 25dvh;
+    
 }
 
 .template{
     margin-top: 2dvh;
+    text-align: center;
+    transition: transform 0.3s ease-in-out;  
+}
+
+
+.manga-cards-container{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 25dvh;
+}
+
+.manga-list{
+    display: flex;
+    justify-content: center;
+}
+
+
+
+.center{
+    text-align: center;
+}
+
+.template:hover{
+    transform: scale(1.1);
 }

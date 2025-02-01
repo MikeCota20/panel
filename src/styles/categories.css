@@ -7,9 +7,13 @@
     gap: 10dvh;
 }
 
+.categories-element{
+    transition: transform 0.3s ease-in-out;  
+}
+
 .categories-element img{
     height: 75dvh;
-    width: auto;   
+    width: auto; 
 }
 
 
@@ -31,4 +35,8 @@
     .categories-element h1{
         font-size: 6dvh;
     }
+}
+
+.categories-element:hover{
+    transform: scale(1.05);
 }

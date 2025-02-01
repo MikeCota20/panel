@@ -6,6 +6,9 @@
 .manga-filters{
     display: flex;
     flex-direction: row;
+    gap: 4dvh;
+    margin-left: 2dvh;
+
 }
 
 .manga-section{
@@ -20,3 +23,7 @@
     padding: 20px;
 }
 
+.manga-filters input{
+    margin-top: 1.3dvh;
+    height: 3dvh;
+}
